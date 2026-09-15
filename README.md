@@ -2,9 +2,9 @@
 Entrega del curso Estructura de datos
 Proyecto desarrollado en C++ 
 
-Proyecto desarrollado en C++ 
+$Proyecto$ desarrollado en C++ 
 
-##Descripción del Proyecto
+# Descripción del Proyecto
 El sistema modela un juego de cartas por turnos con capacidad para $N$ jugadores (2, 3 o más).
 
 # Baraja y Reparto
