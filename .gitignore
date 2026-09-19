@@ -1,15 +1,15 @@
-# Ejecutables y archivos objeto de C++
+ # Ejecutables y archivos objeto de C++
 *.exe
 *.o
 *.obj
 *.out
 
-# Carpetas temporales y de compilación
+# Estas son las carpetas temporales y de compilación
 build/
 Debug/
 Release/
 .vscode/
 .idea/
 
-# Archivo de guardado de pruebas
+# Se crea un archivo de guardado
 partida_temp.txt
