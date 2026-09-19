@@ -1,0 +1,15 @@
+# Ejecutables y archivos objeto de C++
+*.exe
+*.o
+*.obj
+*.out
+
+# Carpetas temporales y de compilación
+build/
+Debug/
+Release/
+.vscode/
+.idea/
+
+# Archivo de guardado de pruebas
+partida_temp.txt
