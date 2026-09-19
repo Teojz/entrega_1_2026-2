@@ -26,7 +26,8 @@ La baraja se compone de 50 cartas numeradas estrictamente del 1 al 50. A cada n�
 El sistema permite guardar el estado de la partida en cualquier momento en un archivo (`partida.txt`) y reanudarla posteriormente, manteniendo ronda, líder activo, manos restantes y puntajes.
 
 ## Diagrama de Clases UML
-Pendiente por subir...
+<img width="982" height="898" alt="Diagrama UML" src="https://github.com/user-attachments/assets/42583af6-52a5-49fd-bb4f-6c1f752033f2" />
+
 
 ## Funcionalidades Principales
 - **Memoria Dinámica:** Creación y gestión de $N$ jugadores y manos variables en el heap mediante punteros (`Jugador*`, `Carta*`).
