@@ -9,7 +9,7 @@ private:
     std::string color;
 
 public:
-    // Constructores
+
     Carta();
     Carta(int num, const std::string& col);
 
@@ -17,7 +17,6 @@ public:
     int getNumero() const;
     std::string getColor() const;
 
-    // Impresion de datos
     void mostrarInfo() const;
 };
 
