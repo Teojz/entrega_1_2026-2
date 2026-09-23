@@ -1,23 +1,33 @@
+#ifndef JUGADOR_H
+#ifndef JUGADOR_H
+#define JUGADOR_H
 
-#include <iostream>
-using namespace std;
+#include <string>
+#include "Carta.h"
 
 class Jugador {
 private:
-	int id;
-	string nombre;
-	int puntaje;
-	Carta* mano;
-	int cantCartas
+    int id;              // Identificador único del jugador
+    std::string nombre;  // Nombre del jugador
+    int puntaje;         // Puntos acumulados durante las rondas
+    Carta* mano;         // Arreglo dinámico de objetos Carta
+    int cantCartas;      // Cantidad de cartas en mano actualmente
+    int capacidadMano;   // Capacidad máxima asignada al arreglo dinámico
 
 public:
-	Jugador();
-	Jugador(int id,string nom,int maxCartas);
-	~Jugador(); // Para liberar la memoria dinamica asignada a la mano
-	void recibirCarta(Carta c);
-	Carta jugarCarta(int indice);
-	void sumarPuntos(int pts);
-	int getPuntaje();
-	int getCantCartas();
-	void mostrarMano();
-}
+    // Constructores y Destructor
+    Jugador();
+    Jugador(int id, std::string nom, int maxCartas);
+    ~Jugador(); // Necesario para liberar la memoria dinámica asignada a la mano
+    void recibirCarta(Carta c);
+    Carta jugarCarta(int indice);
+    void sumarPuntos(int pts);
+    int getPuntaje() const;
+    int getCantCartas() const;
+    void mostrarMano() const;
+    int getId() const;
+    std::string getNombre() const;
+	Carta getCarta(int indice) const;
+};
+
+#endif 
