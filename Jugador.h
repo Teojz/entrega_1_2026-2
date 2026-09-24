@@ -1,5 +1,4 @@
 #ifndef JUGADOR_H
-#ifndef JUGADOR_H
 #define JUGADOR_H
 
 #include <string>
@@ -18,7 +17,9 @@ public:
     // Constructores y Destructor
     Jugador();
     Jugador(int id, std::string nom, int maxCartas);
-    ~Jugador(); // Necesario para liberar la memoria dinámica asignada a la mano
+    ~Jugador(); // Libera la memoria dinámica asignada a la mano
+
+    // Métodos del UML y auxiliares
     void recibirCarta(Carta c);
     Carta jugarCarta(int indice);
     void sumarPuntos(int pts);
@@ -27,7 +28,7 @@ public:
     void mostrarMano() const;
     int getId() const;
     std::string getNombre() const;
-	Carta getCarta(int indice) const;
+    Carta getCarta(int indice) const; // Agregado para GestorArchivos
 };
 
-#endif 
+#endif // JUGADOR_H

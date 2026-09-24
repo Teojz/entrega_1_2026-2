@@ -1,5 +1,4 @@
 #ifndef GESTORARCHIVOS_H
-#ifndef GESTORARCHIVOS_H
 #define GESTORARCHIVOS_H
 
 #include <string>
@@ -11,8 +10,10 @@ private:
 
 public:
     GestorArchivos();
+
+    // Métodos según el diagrama UML
     bool guardar(std::string ruta, Jugador* js, int numJ, int ronda, int lider);
     bool cargar(std::string ruta, Jugador*& js, int &numJ, int &ronda, int &lider);
 };
 
-#endif
+#endif // GESTORARCHIVOS_H

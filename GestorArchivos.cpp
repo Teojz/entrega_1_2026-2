@@ -1,15 +1,16 @@
 #include "GestorArchivos.h"
 #include <fstream>
 #include <iostream>
-#include <sstream>
 
 GestorArchivos::GestorArchivos() : rutaArchivo("partida.txt") {}
 
 // Serialización: Guarda el estado completo de la partida en el archivo especificado
 bool GestorArchivos::guardar(std::string ruta, Jugador* js, int numJ, int ronda, int lider) {
-    std::ofstream archivo(ruta);
+    std::string nombreArchivo = ruta.empty() ? rutaArchivo : ruta;
+    std::ofstream archivo(nombreArchivo);
+
     if (!archivo.is_open()) {
-        std::cerr << "Error: No se pudo abrir el archivo para guardar: " << ruta << std::endl;
+        std::cerr << "Error: No se pudo abrir el archivo para guardar: " << nombreArchivo << std::endl;
         return false;
     }
 
@@ -24,8 +25,8 @@ bool GestorArchivos::guardar(std::string ruta, Jugador* js, int numJ, int ronda,
                 << js[i].getNombre() << " "
                 << "PUNTOS: " << js[i].getPuntaje() << " "
                 << "CARTAS: " << js[i].getCantCartas() << "\n";
-                
-    // Volcado REAL y automático de las cartas al archivo partida.txt                    
+
+        // Volcado automático de las cartas del jugador
         for (int c = 0; c < js[i].getCantCartas(); c++) {
             archivo << js[i].getCarta(c).getNumero() << " " 
                     << js[i].getCarta(c).getColor() << " ";
@@ -40,9 +41,11 @@ bool GestorArchivos::guardar(std::string ruta, Jugador* js, int numJ, int ronda,
 
 // Deserialización: Carga el estado guardado y reconstruye los objetos en memoria
 bool GestorArchivos::cargar(std::string ruta, Jugador*& js, int &numJ, int &ronda, int &lider) {
-    std::ifstream archivo(ruta);
+    std::string nombreArchivo = ruta.empty() ? rutaArchivo : ruta;
+    std::ifstream archivo(nombreArchivo);
+
     if (!archivo.is_open()) {
-        std::cerr << "Error: No se pudo abrir el archivo para cargar: " << ruta << std::endl;
+        std::cerr << "Error: No se pudo abrir el archivo para cargar: " << nombreArchivo << std::endl;
         return false;
     }
 
@@ -53,26 +56,25 @@ bool GestorArchivos::cargar(std::string ruta, Jugador*& js, int &numJ, int &rond
     archivo >> etiqueta >> ronda;  // RONDA: Y
     archivo >> etiqueta >> lider;  // LIDER_ACTUAL: Z
 
-    // 2. Crear dinámicamente el arreglo de Jugadores
+    // 2. Crear dinámicamente el arreglo de Jugadores en el Heap
     if (js != nullptr) {
-        delete[] js; // Limpiar si ya había un arreglo previo
+        delete[] js; // Previene fugas de memoria si ya existía un arreglo
     }
     js = new Jugador[numJ];
 
-    // 3. Leer cada jugador y sus cartas
+    // 3. Leer cada jugador y reconstruir su mano
     for (int i = 0; i < numJ; i++) {
         int id, puntos, cantCartas;
         std::string nombre, etiquetaPuntos, etiquetaCartas;
 
-        // Leer encabezado de jugador: JUGADOR: [id] [nombre] PUNTOS: [puntos] CARTAS: [cantCartas]
+        // Leer encabezado: JUGADOR: [id] [nombre] PUNTOS: [puntos] CARTAS: [cantCartas]
         archivo >> etiqueta >> id >> nombre >> etiquetaPuntos >> puntos >> etiquetaCartas >> cantCartas;
 
-        // Reconstruir el objeto Jugador en la posición i
-        // Se le asigna capacidad suficiente para sus cartas
+        // Instanciar jugador pasando la cantidad de cartas como capacidad inicial
         js[i] = Jugador(id, nombre, cantCartas);
         js[i].sumarPuntos(puntos);
 
-        // Leer la siguiente línea con la lista de cartas
+        // Leer cada par (numero color) y cargar las cartas en la mano
         for (int c = 0; c < cantCartas; c++) {
             int numCarta;
             std::string colorCarta;

@@ -15,6 +15,48 @@ Jugador::Jugador(int id, std::string nom, int maxCartas)
     }
 }
 
+// Constructor de copia (Copia Profunda / Deep Copy)
+Jugador::Jugador(const Jugador& otro) 
+    : id(otro.id), nombre(otro.nombre), puntaje(otro.puntaje), 
+      cantCartas(otro.cantCartas), capacidadMano(otro.capacidadMano) {
+    if (otro.capacidadMano > 0 && otro.mano != nullptr) {
+        mano = new Carta[otro.capacidadMano];
+        for (int i = 0; i < otro.cantCartas; i++) {
+            mano[i] = otro.mano[i];
+        }
+    } else {
+        mano = nullptr;
+    }
+}
+
+// Operador de asignación (Copia Profunda / Deep Copy)
+Jugador& Jugador::operator=(const Jugador& otro) {
+    if (this != &otro) { // Evitar autoasignación (ej. j1 = j1)
+        // 1. Liberar la memoria previa si existía
+        if (mano != nullptr) {
+            delete[] mano;
+        }
+
+        // 2. Copiar atributos simples
+        this->id = otro.id;
+        this->nombre = otro.nombre;
+        this->puntaje = otro.puntaje;
+        this->cantCartas = otro.cantCartas;
+        this->capacidadMano = otro.capacidadMano;
+
+        // 3. Asignar nueva memoria propia
+        if (otro.capacidadMano > 0 && otro.mano != nullptr) {
+            this->mano = new Carta[otro.capacidadMano];
+            for (int i = 0; i < otro.cantCartas; i++) {
+                this->mano[i] = otro.mano[i];
+            }
+        } else {
+            this->mano = nullptr;
+        }
+    }
+    return *this;
+}
+
 // Destructor: Libera la memoria dinámica asignada para evitar memory leaks
 Jugador::~Jugador() {
     if (mano != nullptr) {
