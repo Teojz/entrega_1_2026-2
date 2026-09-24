@@ -21,3 +21,4 @@ std::string Carta::getColor() const {
 void Carta::mostrarInfo() const {
     std::cout << "[" << color << " " << numero << "]\n";
 }
+// Fin implementacion Carta
